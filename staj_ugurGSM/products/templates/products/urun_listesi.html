@@ -1,0 +1,107 @@
+{% extends 'products/base.html' %}
+
+{% block extra_head %}
+<style>
+  .urunler-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+  }
+  .urun-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .urun-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 48px rgb(0, 0, 0);
+  }
+  .urun-resim {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.25);
+    transition: box-shadow 0.3s ease;
+  }
+  .urun-card:hover .urun-resim {
+    box-shadow: inset 0 0 20px rgba(160, 200, 240, 0.7);
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 700;
+    color: #000000;
+    text-shadow: 0 0 8px rgba(160, 200, 240, 0.7);
+  }
+  h2 {
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    color: #000000;
+    text-shadow: 0 0 4px rgba(160, 200, 240, 0.5);
+  }
+  p {
+    margin: 6px 0;
+    font-weight: 400;
+    color: #000000;
+  }
+  p strong {
+    color: #0080ff;
+  }
+  small {
+    color: #ff0000;
+  }
+  /* Responsive */
+  @media (max-width: 600px) {
+    .urunler-container {
+      padding: 0 10px;
+      gap: 20px;
+    }
+    .urun-card {
+      padding: 15px;
+    }
+    .urun-resim {
+      height: 140px;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Ürün Listesi</h1>
+
+<div class="urunler-container">
+  {% for urun in urunler %}
+    <article class="urun-card" role="region" aria-label="Ürün: {{ urun.ad }}">
+      <h2>{{ urun.ad }}</h2>
+
+      {% if urun.resim %}
+        <img src="{{ urun.resim.url }}" alt="{{ urun.ad }}" class="urun-resim" loading="lazy" />
+      {% else %}
+        <div class="urun-resim" style="display:flex; align-items:center; justify-content:center; color:#aaa; font-size:24px;">📷</div>
+      {% endif %}
+
+      <p><strong>Açıklama:</strong> {{ urun.aciklama }}</p>
+      <p><strong>Fiyat:</strong> {{ urun.fiyat }} TL</p>
+      <p><strong>Stok:</strong> {{ urun.stok }} adet</p>
+      <p><strong>Kategori:</strong> {{ urun.kategori.ad }}</p>
+      <p><small>Eklenme tarihi: {{ urun.eklenme_tarihi|date:"d.m.Y H:i" }}</small></p>
+    </article>
+  {% empty %}
+    <p style="text-align:center; color:#aaa; font-style: italic;">Hiç ürün bulunamadı.</p>
+  {% endfor %}
+</div>
+{% endblock %}

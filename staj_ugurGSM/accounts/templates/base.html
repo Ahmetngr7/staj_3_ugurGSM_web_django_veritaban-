@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Websitem</title>
+</head>
+<body>
+  {% if user.is_authenticated %}
+    <p>Hoşgeldin, {{ user.username }} | <a href="{% url 'accounts:cikis' %}">Çıkış</a></p>
+  {% else %}
+    <p><a href="{% url 'accounts:giris' %}">Giriş</a> | <a href="{% url 'accounts:kayit' %}">Kayıt</a></p>
+  {% endif %}
+  <hr>
+  {% block content %}{% endblock %}
+</body>
+</html>

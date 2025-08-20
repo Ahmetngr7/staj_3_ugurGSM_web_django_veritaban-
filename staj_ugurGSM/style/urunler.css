@@ -1,0 +1,62 @@
+.urunler-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  padding-bottom: 50px;
+}
+
+.urun-kutu {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.urun-kutu:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.urun-resim {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  background: #eee;
+}
+
+.urun-resim.yok {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #aaa;
+  font-size: 2rem;
+  height: 180px;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.urun-baslik {
+  font-size: 1.3rem;
+  margin: 0 0 10px 0;
+  color: #222;
+}
+
+.urun-aciklama {
+  flex-grow: 1;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.urun-tarih {
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: 10px;
+  text-align: right;
+}

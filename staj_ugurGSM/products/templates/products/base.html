@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}Websitem - Modern{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: #fafafa;
+      color: #222;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a {
+      color: #1a73e8;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover, a:focus {
+      color: #0c47b7;
+      outline-offset: 3px;
+      outline: 2px solid #0c47b7;
+    }
+
+    .topbar {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+      padding: 8px 40px;
+      display: flex;
+      justify-content: flex-end;
+      font-size: 0.9rem;
+      color: #444;
+      gap: 25px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      user-select: none;
+    }
+
+    header {
+      padding: 15px 40px;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.07);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 0 0 20px 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+      color: #222;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #1a73e8;
+      text-shadow: 0 0 6px rgba(26,115,232,0.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo svg {
+      height: 30px;
+      width: 30px;
+      fill: currentColor;
+    }
+
+    .search-bar {
+      flex: 1 1 400px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    select, input[type="search"] {
+      background: rgba(255, 255, 255, 0.85);
+      color: #222;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 6px;
+      padding: 8px 12px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    select:hover, select:focus, input[type="search"]:focus {
+      background: #fff;
+      border-color: #1a73e8;
+      outline: none;
+    }
+    input[type="search"] {
+      flex: 1;
+    }
+    input[type="search"]::placeholder {
+      color: #999;
+    }
+    button.search-btn {
+      background: #1a73e8;
+      color: white;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(26,115,232,0.6);
+      cursor: pointer;
+    }
+    button.search-btn:hover {
+      background: #0c47b7;
+      box-shadow: 0 6px 20px rgba(12,71,183,0.8);
+    }
+
+    .icons {
+      display: flex;
+      gap: 20px;
+      color: #1a73e8;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .icon-btn {
+      background: rgba(255, 255, 255, 0.7);
+      padding: 8px 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(26,115,232,0.25);
+      position: relative;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .icon-btn:hover {
+      background: rgba(26,115,232,0.15);
+      color: #0c47b7;
+    }
+    .badge {
+      position: absolute;
+      top: 2px;
+      right: 5px;
+      background: #1a73e8;
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 2px 5px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    .category-menu {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+      padding: 10px 40px;
+      display: flex;
+      gap: 25px;
+      border-radius: 0 0 20px 20px;
+      flex-wrap: wrap;
+    }
+    .category-menu a {
+      color: #1a73e8;
+      font-weight: 600;
+    }
+
+    .products {
+      padding: 60px 40px;
+      background: linear-gradient(135deg, #e3f2fd 0%, #f9f9f9 100%);
+      text-align: center;
+    }
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: #1a73e8;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .product-card {
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    .product-card img {
+      width: 100%;
+      max-width: 180px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+    .product-card h3 {
+      font-size: 1.2rem;
+      color: #222;
+    }
+    .product-card p {
+      font-size: 0.95rem;
+      color: #666;
+      margin: 8px 0;
+    }
+    .price {
+      margin-top: auto;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #1a73e8;
+    }
+
+    @media (max-width: 900px) {
+      header, .search-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .category-menu {
+        justify-content: center;
+        padding: 10px 20px;
+        gap: 15px;
+      }
+    }
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+  <nav class="topbar">
+    <a href="#">About Us</a>
+    <a href="#">Order Tracking</a>
+    <a href="#">Contact Us</a>
+    <a href="#">FAQs</a>
+    <div style="flex-grow:1"></div>
+    <a href="#">English ▼</a>
+    <a href="#">USD ▼</a>
+  </nav>
+
+  <header>
+    <a href="{% url 'products:liste' %}" class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14.5v-3h2.5a3.5 3.5 0 11-2.5 3z"/></svg>
+      TailGrids
+    </a>
+    <form class="search-bar" role="search" method="get" action="#">
+      <select name="category">
+        <option value="all">All categories</option>
+        <option value="mens">Mens</option>
+        <option value="womans">Womans</option>
+        <option value="kids">Kids</option>
+        <option value="electronics">Electronic Items</option>
+        <option value="kitchen">Kitchen Accessories</option>
+        <option value="news">News & Blogs</option>
+        <option value="contact">Contact Us</option>
+      </select>
+      <input type="search" name="q" placeholder="I'm shopping for..." />
+      <button type="submit" class="search-btn">🔍</button>
+    </form>
+    <div class="icons">
+      <div class="icon-btn">📞<span style="margin-left:6px; font-weight:normal;">+001 123 456 789</span></div>
+      <a href="#" class="icon-btn">👤</a>
+      <a href="#" class="icon-btn">❤️<span class="badge">3</span></a>
+      <a href="#" class="icon-btn">🛒<span class="badge">1</span></a>
+    </div>
+  </header>
+
+  <nav class="category-menu">
+    <a href="#">Mens</a>
+    <a href="#">Womans</a>
+    <a href="#">Kids</a>
+    <a href="#">Electronic Items</a>
+    <a href="#">Kitchen Accessories</a>
+    <a href="#">News & Blogs</a>
+    <a href="#">Contact Us</a>
+  </nav>
+
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% block content %}{% endblock %}
+
+</body>
+</html>
