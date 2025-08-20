@@ -1,0 +1,1 @@
+# staj_3_ugurGSM_web_django_veritaban-
